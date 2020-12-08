@@ -6,7 +6,9 @@ instruction = 0
 
 #TODO: learn python abc class inherit
 class Nop:
-    def __init__(self):
+    def __init__(self, skip):
+        # skip is not used by nop, just for type switching with Jump
+        self.skip = skip
         self.visited = False
 
     def run(self):
@@ -72,7 +74,7 @@ for line in lines:
     instr = None
 
     if op == "nop":
-        instr = Nop()
+        instr = Nop(val)
     elif op == "acc":
         instr = Accumulate(val)
     elif op == "jmp":
@@ -80,15 +82,39 @@ for line in lines:
     else:
         print("unrecognized op")
 
-    print(isinstance(instr,Jump))
 
     program.append(instr)
 
-print(len(program))
-while True:
-    ret = program[instruction].run()
-    #print("instruction", instruction, "ret", ret)
-    if not ret:
+def flip(i):
+    if isinstance(program[i], Jump):
+        program[i] = Nop(program[i].skip)
+    elif isinstance(program[i], Nop):
+        program[i] = Jump(program[i].skip)
+
+length = len(program)
+for i in range(length):
+
+    flip(i)
+
+    # reset program state
+    accumulator = 0
+    instruction = 0
+
+    for r in program:
+        r.visited = False
+
+    while not instruction == length:
+        ret = program[instruction].run()
+        #print("instruction", instruction, "ret", ret)
+        if not ret:
+            break
+
+    if instruction == length:
+        print("program finished at instruction", i)
         break
+
+    # second flip resets state
+    flip(i)
+
 
 print("accumulator", accumulator)
