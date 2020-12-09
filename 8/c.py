@@ -2,75 +2,62 @@ import re
 import json
 
 class Processor:
-    def __init__(self):
+    def __init__(self, p):
         self.accumulator = 0
         self.instruction = 0
-        self.program = []
+        self.program = p
 
     # Returns true if program completes execution
     def execute(self):
         length = len(self.program)
         while not self.instruction == length:
-            # TODO:
-            # - Instruction base class, that does base things like increment instruction
-            # - execute() on an instructions should update processor state somehow. return tuple? processor argument?
-            ret = self.program[self.instruction].run()
+            ret = self.program[self.instruction].run(self)
             if not ret:
                 break
 
-        if instruction == length:
+        if self.instruction == length:
             return True
 
         return False
 
-
-#TODO: learn python abc class inherit
-class Nop:
-    def __init__(self, skip):
-        # skip is not used by nop, just for type switching with Jump
-        self.skip = skip
+class Instruction:
+    def __init__(self, data):
+        # data is not used by Instruction, though common to children
+        self.data = data
         self.visited = False
 
-    def run(self):
+    def run(self, proc):
         if self.visited:
             return False
 
-        global instruction
-        instruction = instruction + 1
-
+        proc.instruction += 1
         self.visited = True
         return True
 
-class Accumulate:
-    def __init__(self, val):
-        self.val = val
-        self.visited = False
+class Nop(Instruction):
+    pass
 
-    def run(self):
-        if self.visited:
+class Accumulate(Instruction):
+    def __init__(self, data):
+        super().__init__(data)
+
+    def run(self, proc):
+        if not super().run(proc):
             return False
 
-        global accumulator 
-        global instruction
-
-        accumulator = accumulator + self.val
-        instruction = instruction + 1
-        self.visited = True
+        proc.accumulator += self.data
         return True
 
-class Jump:
-    def __init__(self, skip):
-        self.skip = skip
-        self.visited = False
+class Jump(Instruction):
+    def __init__(self, data):
+        super().__init__(data)
 
-    def run(self):
-        if self.visited:
+    def run(self, proc):
+        if not super().run(proc):
             return False
 
-        global instruction
-
-        instruction = instruction + self.skip
-        self.visited = True
+        # -1, as base has already stepped one instruction
+        proc.instruction += (self.data - 1)
         return True
 
 data = open("data.txt", "r")
@@ -107,34 +94,24 @@ for line in lines:
 
 def flip(i):
     if isinstance(program[i], Jump):
-        program[i] = Nop(program[i].skip)
+        program[i] = Nop(program[i].data)
     elif isinstance(program[i], Nop):
-        program[i] = Jump(program[i].skip)
+        program[i] = Jump(program[i].data)
 
 length = len(program)
-for i in range(length):
+for i in range(7, length):
 
     flip(i)
-
-    # reset program state
-    accumulator = 0
-    instruction = 0
 
     for r in program:
         r.visited = False
 
-    while not instruction == length:
-        ret = program[instruction].run()
-        #print("instruction", instruction, "ret", ret)
-        if not ret:
-            break
+    proc = Processor(program)
 
-    if instruction == length:
-        print("program finished at instruction", i)
+    if proc.execute():
+        print("program finished, accumulator", proc.accumulator)
         break
 
     # second flip resets state
     flip(i)
 
-
-print("accumulator", accumulator)
