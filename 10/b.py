@@ -13,43 +13,33 @@ for line in lines:
     val = int(line)
     code.append(val)
 
+code.append(0)
 code.sort()
-start = 0
 end = code[-1] + 3
+code.append(end)
 
-# returns true if supplied list is valid
-def valid(l):
-    last = 0
-    for i in range(0, len(l)):
-        diff = l[i] - last
+# hash(key) = values
+value = dict()
+value[end] = 1
 
-        if diff > 3:
-            return False
+#print(code)
 
-        last = l[i]
+length = len(code)
+last = end
+for i in reversed(range(length-1)):
 
-    if end - l[-1] > 3:
-        return False
+    sum = 0;
+    if i + 1 < length and code[i+1] - code[i] <= 3:
+        sum += value[code[i+1]];
+    if i + 2 < length and code[i+2] - code[i] <= 3:
+        sum += value[code[i+2]];
+    if i + 3 < length and code[i+3] - code[i] <= 3:
+        sum += value[code[i+3]];
 
-    return True
+    #print(i, code[i], sum)
 
-# returns count of legal permutations of l
-def permute(l, start):
+    value[code[i]] = sum
 
-    if not valid(l):
-        return 0
-
-    # we're valid
-    total = 1
-
-    for i in range(start, len(l)):
-        new_list = l.copy()
-        new_list.remove(l[i])
-
-        total += permute(new_list, i)
-
-    return total
-
-print(permute(code, 0))
+print(value[0]);
 
 
