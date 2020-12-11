@@ -53,16 +53,16 @@ def printseat(s):
 # returns the number of occupied seats around s
 def occupied(s, i, j):
     startx = max(0, i-1);
-    endx = min(len(s)-1, i+1)
+    endx = min(len(s), i+2)
     starty = max(0, j-1);
-    endy = min(len(s[i])-1, i+1)
+    endy = min(len(s[i]), j+2)
 
     count = 0
 
     for x in range(startx, endx, 1):
         for y in range(starty, endy, 1):
             if not (x == i and y == j):
-                if s[i][j] == Seat.OCCUPIED:
+                if s[x][y] == Seat.OCCUPIED:
                     count += 1
 
     return count
@@ -80,13 +80,22 @@ def update(s):
 
     return n
 
-printseat(seat)
-print("|||")
+def countseats(s):
+    count = 0
+    for i in range(len(s)):
+        for j in range(len(s[i])):
+            if s[i][j] == Seat.OCCUPIED:
+                count += 1
 
-a = update(seat)
-printseat(a)
-print("|||")
+    return count
 
-b = update(a)
-printseat(b)
-print("|||")
+for i in range(1000):
+    #printseat(seat)
+    last = seat
+    seat = update(seat)
+
+    if seat == last:
+        print("stable at iteration", i)
+        print("occupied seats", countseats(seat))
+        break
+
