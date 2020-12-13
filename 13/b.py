@@ -27,7 +27,7 @@ s = lines[1].split(",")
 order = 0
 for t in s:
     if not t == "x":
-        bus.append(BusData(int(t), order))
+        bus.append(BusData(int(t), order%int(t)))
     order += 1
 
 # start with the biggest bus time
@@ -40,9 +40,54 @@ print(search)
 busmax = search[0]
 search.remove(busmax)
 
+
 # where we start searching
+# search for 2nd biggest
 cur = busmax.time - busmax.offset
-found = False
+bus2 = search[0]
+step = busmax.time
+
+while True:
+    # check current
+    next_t = bus2.time * math.ceil(cur/bus2.time)
+    if next_t == cur + bus2.offset:
+        break
+
+    cur += step
+
+# at this point we know the first place where #1 and #2 align, there we can step by their product
+step = busmax.time * bus2.time
+search.remove(bus2)
+
+# does this extend to 3 buses?
+bus3 = search[0]
+
+while True:
+    # check current
+    next_t = bus3.time * math.ceil(cur/bus3.time)
+    if next_t == cur + bus3.offset:
+        print("found bus3!")
+        break
+
+    cur += step
+
+step *= bus3.time
+search.remove(bus3)
+
+# does this extend to 4 buses?
+bus4 = search[0]
+
+while True:
+    # check current
+    next_t = bus4.time * math.ceil(cur/bus4.time)
+    if next_t == cur + bus4.offset:
+        print("found bus4!")
+        break
+
+    cur += step
+
+step *= bus4.time
+search.remove(bus4)
 
 while True:
     # check current
@@ -56,6 +101,6 @@ while True:
     if found:
         break
 
-    cur += busmax.time
+    cur += step
 
 print(cur)
