@@ -11,6 +11,12 @@ class NumberData:
         self.turn = t
         self.lastturn = 0
 
+    def getsay(self):
+        say = self.lastturn
+        if say != 0:
+            say = self.turn - self.lastturn
+        return say
+
     def addturn(self, t):
         self.lastturn = self.turn
         self.turn = t
@@ -19,12 +25,12 @@ class NumberData:
 
 # 436
 # 175594
-#data = [0,3,6] 
+data = [0,3,6] 
 
 # 1
 #data = [1,3,2]
 
-data = [13,0,10,12,1,5,8]
+#data = [13,0,10,12,1,5,8]
 
 # map: value -> turn last spoken
 spoken = dict()
@@ -37,18 +43,14 @@ for d in data:
     last = d
     turn += 1
 
+# play turns
 for t in range(turn, 30000001, 1):
-    # last must exist
-    say = spoken[last].lastturn
-    if say != 0:
-        say = spoken[last].turn - spoken[last].lastturn
+    say = spoken[last].getsay()
 
     if say in spoken:
         spoken[say].addturn(t)
     else:
         spoken[say] = NumberData(t)
-
-    #print("turn", t, "say", say)
 
     last = say
 
