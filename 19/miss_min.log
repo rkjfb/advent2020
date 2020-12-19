@@ -1,0 +1,49 @@
+lit14b bbabbbbaabaabba 1
+lit1a babbbbaabaabba 0
+seq27 babbbbaabaabba  - early out
+lit14b babbbbaabaabba 1
+lit1a abbbbaabaabba 1
+seq15 abbbbaabaabba 1
+lit14b abbbbaabaabba 0
+seq15 abbbbaabaabba  - early out
+or15 abbbbaabaabba 0
+seq18 abbbbaabaabba  - early out
+seq27 abbbbaabaabba  - early out
+or27 babbbbaabaabba 0
+seq9 babbbbaabaabba  - early out
+lit1a bbabbbbaabaabba 0
+seq9 bbabbbbaabaabba  - early out
+or9 bbabbbbaabaabba 0
+seq42 bbabbbbaabaabba  - early out
+lit1a bbabbbbaabaabba 0
+seq25 bbabbbbaabaabba  - early out
+lit1a bbabbbbaabaabba 0
+seq25 bbabbbbaabaabba  - early out
+or25 bbabbbbaabaabba 0
+seq23 bbabbbbaabaabba  - early out
+lit14b bbabbbbaabaabba 1
+lit14b babbbbaabaabba 1
+seq22 bbabbbbaabaabba 2
+lit14b abbbbaabaabba 0
+seq23 abbbbaabaabba  - early out
+or23 bbabbbbaabaabba 0
+seq10 bbabbbbaabaabba  - early out
+lit1a bbabbbbaabaabba 0
+seq15 bbabbbbaabaabba  - early out
+lit14b bbabbbbaabaabba 1
+seq15 bbabbbbaabaabba 1
+or15 bbabbbbaabaabba 0
+seq16 bbabbbbaabaabba  - early out
+lit14b bbabbbbaabaabba 1
+lit14b babbbbaabaabba 1
+seq16 bbabbbbaabaabba 2
+or16 bbabbbbaabaabba 0
+seq28 bbabbbbaabaabba  - early out
+seq10 bbabbbbaabaabba  - early out
+or10 bbabbbbaabaabba 0
+seq42 bbabbbbaabaabba  - early out
+or42 bbabbbbaabaabba 0
+seq8 bbabbbbaabaabba  - early out
+seq0 bbabbbbaabaabba  - early out
+no match bbabbbbaabaabba
+total matches 0

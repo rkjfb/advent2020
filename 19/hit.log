@@ -1,0 +1,141 @@
+D:\repo\advent2020\19>python3 b.py
+lit14b bbabbbbaabaabba 1
+lit1a babbbbaabaabba 0
+seq27 babbbbaabaabba  - early out
+lit14b babbbbaabaabba 1
+lit1a abbbbaabaabba 1
+seq15 abbbbaabaabba 1
+lit14b abbbbaabaabba 0
+seq15 abbbbaabaabba  - early out
+or15 abbbbaabaabba 1
+lit1a bbbbaabaabba 0
+seq15 bbbbaabaabba  - early out
+lit14b bbbbaabaabba 1
+seq15 bbbbaabaabba 1
+or15 bbbbaabaabba 1
+seq18 abbbbaabaabba 2
+seq27 babbbbaabaabba 3
+or27 babbbbaabaabba 3
+seq9 bbabbbbaabaabba 4
+lit1a bbabbbbaabaabba 0
+seq9 bbabbbbaabaabba  - early out
+or9 bbabbbbaabaabba 4
+lit14b bbbaabaabba 1
+seq42 bbabbbbaabaabba 5
+lit1a bbabbbbaabaabba 0
+seq25 bbabbbbaabaabba  - early out
+lit1a bbabbbbaabaabba 0
+seq25 bbabbbbaabaabba  - early out
+or25 bbabbbbaabaabba 0
+seq23 bbabbbbaabaabba  - early out
+lit14b bbabbbbaabaabba 1
+lit14b babbbbaabaabba 1
+seq22 bbabbbbaabaabba 2
+lit14b abbbbaabaabba 0
+seq23 abbbbaabaabba  - early out
+or23 bbabbbbaabaabba 0
+seq10 bbabbbbaabaabba  - early out
+lit1a bbabbbbaabaabba 0
+seq15 bbabbbbaabaabba  - early out
+lit14b bbabbbbaabaabba 1
+seq15 bbabbbbaabaabba 1
+or15 bbabbbbaabaabba 1
+lit1a babbbbaabaabba 0
+seq16 babbbbaabaabba  - early out
+lit14b bbabbbbaabaabba 1
+lit14b babbbbaabaabba 1
+seq16 bbabbbbaabaabba 2
+or16 bbabbbbaabaabba 2
+lit1a abbbbaabaabba 1
+seq28 bbabbbbaabaabba 3
+lit1a bbbbaabaabba 0
+seq10 bbbbaabaabba  - early out
+or10 bbabbbbaabaabba 0
+seq42 bbabbbbaabaabba  - early out
+or42 bbabbbbaabaabba 5
+seq8 bbabbbbaabaabba 5
+lit14b bbaabaabba 1
+lit1a baabaabba 0
+seq27 baabaabba  - early out
+lit14b baabaabba 1
+lit1a aabaabba 1
+seq15 aabaabba 1
+lit14b aabaabba 0
+seq15 aabaabba  - early out
+or15 aabaabba 1
+lit1a abaabba 1
+seq15 abaabba 1
+lit14b abaabba 0
+seq15 abaabba  - early out
+or15 abaabba 1
+seq18 aabaabba 2
+seq27 baabaabba 3
+or27 baabaabba 3
+seq9 bbaabaabba 4
+lit1a bbaabaabba 0
+seq9 bbaabaabba  - early out
+or9 bbaabaabba 4
+lit14b baabba 1
+seq42 bbaabaabba 5
+lit1a bbaabaabba 0
+seq25 bbaabaabba  - early out
+lit1a bbaabaabba 0
+seq25 bbaabaabba  - early out
+or25 bbaabaabba 0
+seq23 bbaabaabba  - early out
+lit14b bbaabaabba 1
+lit14b baabaabba 1
+seq22 bbaabaabba 2
+lit14b aabaabba 0
+seq23 aabaabba  - early out
+or23 bbaabaabba 0
+seq10 bbaabaabba  - early out
+lit1a bbaabaabba 0
+seq15 bbaabaabba  - early out
+lit14b bbaabaabba 1
+seq15 bbaabaabba 1
+or15 bbaabaabba 1
+lit1a baabaabba 0
+seq16 baabaabba  - early out
+lit14b bbaabaabba 1
+lit14b baabaabba 1
+seq16 bbaabaabba 2
+or16 bbaabaabba 2
+lit1a aabaabba 1
+seq28 bbaabaabba 3
+lit1a abaabba 1
+seq10 bbaabaabba 4
+or10 bbaabaabba 4
+lit1a baabba 0
+seq42 baabba  - early out
+or42 bbaabaabba 5
+lit14b aabba 0
+seq31 aabba  - early out
+lit1a aabba 1
+lit14b abba 0
+seq13 abba  - early out
+lit1a abba 1
+lit14b bba 1
+lit1a ba 0
+seq24 ba  - early out
+seq12 bba  - early out
+lit14b bba 1
+lit1a ba 0
+seq19 ba  - early out
+lit14b bba 1
+lit14b ba 1
+seq19 bba 2
+or19 bba 2
+lit1a a 1
+seq12 bba 3
+or12 bba 3
+seq13 abba 4
+or13 abba 4
+seq31 aabba 5
+or31 aabba 5
+seq11 bbaabaabba 10
+seq0 bbabbbbaabaabba 15
+match bbabbbbaabaabba
+total matches 1
+
+D:\repo\advent2020\19>
