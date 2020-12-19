@@ -5,6 +5,9 @@ import copy
 from collections import deque
 import math
 
+# todo: learn more about logging.debug, briefly tried and it was dumping call stacks
+debug = False
+
 class Op:
     def match(self, line):
         return 0
@@ -26,7 +29,8 @@ class Literal:
         if len(line) > 0 and line[0] == self.lit:
             ret = [1]
 
-        print("lit" + str(self.index) + self.lit, line, ret)
+        if debug:
+            print("lit" + str(self.index) + self.lit, line, ret)
 
         return ret
 
@@ -55,15 +59,17 @@ class Sequence:
                     # we can now match (o+i) into line
                     outputs.add(o + i)
 
-                if len(outputs) == 0:
-                    # early out as sequence failed
+            if len(outputs) == 0:
+                # early out as sequence failed
+                if debug:
                     print("seq" + str(self.index), line, " - early out")
-                    return []
+                return []
             
             inputs = outputs
 
         ret = list(outputs)
-        print("seq" + str(self.index), line, ret)
+        if debug:
+            print("seq" + str(self.index), line, ret)
 
         return ret
 
@@ -84,9 +90,10 @@ class Or:
         if 0 in merge:
             merge.remove(0)
 
-        print("or" + str(self.index), line, merge)
+        if debug:
+            print("or" + str(self.index), line, merge)
 
-        return merge[0:3]
+        return merge
 
 data = open("data.txt", "r")
 lines = data.readlines()
