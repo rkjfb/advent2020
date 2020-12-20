@@ -8,39 +8,73 @@ import math
 data = open("data.txt", "r")
 lines = data.readlines()
 
-# edge permutation -> tileid
+# edge_owner -> set(tileid)
+# permutation of all edges of all tiles -> [tileid]
+edge_owner = dict()
+
+# id -> [neighbours]
 edge = dict()
 
 # tileid -> tile
 tile = dict()
 
-# locked tiles
-locked = set()
+# corner tiles
+corner_t = set()
+# edge tiles
+edge_t = set()
+# center tiles
+center_t = set()
 
 # grid of tile placements
 grid = []
 
-fail = 0
+def insert_edge(s, id):
+    if not s in edge_owner:
+        edge_owner[s] = []
+    if not id in edge_owner[s]:
+        edge_owner[s].append(id)
 
+# permutes edges
 def insert_edges(t, id):
     m = t
     for i in range(4):
         v = m[0,:]
-        s = str(v)
-        if s in edge:
-            #print("fail", s, id, edge[s])
-            global fail
-            fail += 1
-        edge[s] = id
+        insert_edge(str(v), id)
         
         v = np.flip(v)
-        s = str(v)
-        if s in edge:
-            #print("fail")
-            fail += 1
-        edge[s] = id
+        insert_edge(str(v), id)
 
         m = np.rot90(m)
+
+# updates edge
+def update_edges():
+    global edge
+    for k,v in edge_owner.items():
+        if len(v) == 2:
+            t1 = v[0]
+            t2 = v[1]
+
+            if not t1 in edge:
+                edge[t1] = []
+            if not t2 in edge[t1]:
+                edge[t1].append(t2)
+
+            if not t2 in edge:
+                edge[t2] = []
+            if not t1 in edge[t2]:
+                edge[t2].append(t1)
+
+# returns corners 
+def update_positions():
+    for k,v in edge.items():
+        if len(v) == 2:
+            corner_t.add(k)
+        elif len(v) == 3:
+            edge_t.add(k)
+        elif len(v) == 4:
+            center_t.add(k)
+        else:
+            print("unrecognized tile", k, v)
 
 tileid = 0
 row = []
@@ -68,15 +102,30 @@ for line in lines:
         tile[tileid] = np.array(row)
         insert_edges(tile[tileid], tileid)
 
+update_edges()
+update_positions()
+
 # populate grid with zeros
 s = int(math.sqrt(len(tile)))
 
 for x in range(s):
     grid.append([0] * s)
 
+# if we've bucketed correct, tile count should be unchanged
+assert len(tile) == len(corner_t) + len(edge_t) + len(center_t)
+
 
 print(len(tile))
 print(grid)
-print("fail", fail)
+print("corners", len(corner_t))
+print("edges", len(edge_t))
+print("centers", len(center_t))
+
+product = 1
+for e in corner_t:
+    product *= e
+
+print(product)
+
 
 

@@ -11,3 +11,8 @@ print(np.transpose(a))
 
 print("rot90")
 print(np.rot90(a))
+
+b = dict()
+b[1] = 2
+for c in b:
+    print(c)
