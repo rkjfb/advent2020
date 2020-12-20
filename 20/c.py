@@ -4,7 +4,7 @@ print(a)
 
 print("row+column")
 print(a[:,0])
-print(a[1,:])
+print(a[0,:])
 
 print("transpose")
 print(np.transpose(a))

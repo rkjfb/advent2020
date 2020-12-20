@@ -8,7 +8,40 @@ import math
 data = open("data.txt", "r")
 lines = data.readlines()
 
+# edge permutation -> tileid
+edge = dict()
+
+# tileid -> tile
 tile = dict()
+
+# locked tiles
+locked = set()
+
+# grid of tile placements
+grid = []
+
+fail = 0
+
+def insert_edges(t, id):
+    m = t
+    for i in range(4):
+        v = m[0,:]
+        s = str(v)
+        if s in edge:
+            #print("fail", s, id, edge[s])
+            global fail
+            fail += 1
+        edge[s] = id
+        
+        v = np.flip(v)
+        s = str(v)
+        if s in edge:
+            #print("fail")
+            fail += 1
+        edge[s] = id
+
+        m = np.rot90(m)
+
 tileid = 0
 row = []
 for line in lines:
@@ -33,8 +66,17 @@ for line in lines:
 
     if len(row) == 10:
         tile[tileid] = np.array(row)
+        insert_edges(tile[tileid], tileid)
+
+# populate grid with zeros
+s = int(math.sqrt(len(tile)))
+
+for x in range(s):
+    grid.append([0] * s)
 
 
-print(tile[3079])
+print(len(tile))
+print(grid)
+print("fail", fail)
 
 
