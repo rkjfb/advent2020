@@ -16,6 +16,12 @@ print(np.rot90(a, k=1, axes=(1, 0)))
 print("flip")
 print(np.flip(a))
 
+print("flipud")
+print(np.flipud(a))
+
+print("a")
+print(a)
+
 b = dict()
 b[1] = 2
 for c in b:

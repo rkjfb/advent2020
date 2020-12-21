@@ -74,6 +74,9 @@ def update_edges():
             # remember common edge
             common_edge[(min(t1,t2),max(t1,t2))] = k
 
+def get_common_edge(t1,t2):
+    return common_edge[min(t1, t2), max(t1, t2)]
+
 # returns corners 
 def update_positions():
     for k,v in edge.items():
@@ -101,29 +104,44 @@ def tile_permutes(id):
 
 # spins tile id until right column matches v
 def orient_tile_right(id, v):
+    dbg = False
+    if id == 12345:
+        dbg = True
+        print("goal", v)
+
+    count = 0
     perm = tile_permutes(id)
     for t in perm:
-        if str(t[len(t)-1,:]) == v:
+        test = str(t[len(t)-1,:])
+        if dbg:
+            print("test", test)
+        if test == v:
             tile[id] = t
-            break
+            #break
+            count += 1
+
+    if dbg:
+        print("orient_tile_right", count)
 
 def orient_tile_left(id, v):
     perm = tile_permutes(id)
     for t in perm:
-        if str(t[0,:]) == v:
+        if str(t[0,:]) == str(v):
             tile[id] = t
             break
 
 def orient_tile_top(id, v):
     perm = tile_permutes(id)
     for t in perm:
-        if str(t[:,0]) == v:
+        if str(t[:,0]) == str(v):
             tile[id] = t
             break
 
 # not using numpy block as its [row][col] and i'm currently thinking in [x][y]
 def print_board():
     for ty in range(len(grid)):
+    # todo: just printing top row for focus
+    #for ty in range(1):
         # 10 = len(tile)
         for y in range(10):
             row = ""
@@ -214,26 +232,29 @@ for y in range(1,s):
 # use common_edge to drive orientation
 
 # orient top left (against right column)
-v = common_edge[min(grid[0][0], grid[1][0]), max(grid[0][0], grid[1][0])]
-orient_tile_right(grid[0][0], v)
+t1 = grid[0][0]
+v = get_common_edge(t1, grid[1][0])
+orient_tile_right(t1, v)
+# at this point, our right edge is correct, but might need a horizontal flip
+v = get_common_edge(t1, grid[0][1])
+# 9 = bot row
+test = str(tile[t1][:,9]) 
+# [::-1] python string reverse using slicing
+if not (test == v or test == v[::-1]):
+    # horizontal flip needed
+    tile[t1] = np.fliplr(tile[t1])
 
 # orient top row (left neighbour on left column)
-# bugbug: horizontal flipped
 for x in range(1,s):
-    t1 = grid[x-1][0]
-    t2 = grid[x][0]
-    v = common_edge[min(t1,t2), max(t1,t2)]
+    neighbour = tile[grid[x-1][0]]
+    v = neighbour[9,:]
     orient_tile_left(grid[x][0], v)
-    print("common", x, v)
-    #print(tile[t2])
 
 # orient the rest (top neighbour on top row
 for y in range(1,s):
     for x in range(0,s):
-        t1 = grid[x][y-1]
-        t2 = grid[x][y]
-        v = common_edge[min(t1,t2), max(t1,t2)]
+        neighbour = tile[grid[x][y-1]]
+        v = neighbour[:,9]
         orient_tile_top(grid[x][y], v)
 
-#print(tile[grid[2][0]])
 print_board()
