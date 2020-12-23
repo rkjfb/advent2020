@@ -9,7 +9,8 @@ import math
 # current = [0]
 cups = []
 #line = "389125467"
-line = "418976235"
+#line = "418976235"
+line = "123456789"
 
 for c in line:
     cups.append(int(c))
@@ -45,7 +46,7 @@ def round():
 
 print(cups)
 
-for i in range(100):
+for i in range(10):
     round()
     print(cups)
 
