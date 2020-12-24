@@ -48,7 +48,7 @@ for line in lines:
         pos[0] += o[0]
         pos[1] += o[1]
 
-    k = str(pos)
+    k = (pos[0], pos[1])
     if k in tiles:
         tiles[k] = not tiles[k]
     else:
