@@ -40,8 +40,6 @@ class Sequence:
         self.seq = seq
 
     def match(self, line):
-        ret = 0
-
         # using sets as we're just measuring distance into line
         # if there are two ways to get the same distance, it's still match
         inputs = set()
